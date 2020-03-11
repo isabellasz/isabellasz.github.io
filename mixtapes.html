@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link rel='stylesheet' type='text/css' href='weehoo.css'>
+		<link href="https://fonts.googleapis.com/css?family=Martel&display=swap" rel="stylesheet"> 
+		<title>
+			mixtapes by isabella
+		</title>
+	</head>
+
+	<body>
+		<h1> hey! i want to make u a mixtape :) 
+		</h1>
+		<div> 
+
+				<input type="checkbox" id="cozy" name="cozy" value="cozy">
+				<label for="cozy"> cozy </label>
+				<br>
+				
+				<input type="checkbox" id="chill" name="chill" value="chill">
+				<label for="chill"> chill </label>
+				<br>
+				
+				<input type="checkbox" id="energized" name="energized" value="energized">
+				<label for="energized"> energized </label>
+				<br>
+				
+				<input type="checkbox" id="wild" name="wild" value="wild">
+				<label for="wild"> wild </label>
+				<br>
+				
+				<input type="checkbox" id="excited" name="excited" value="excited">
+				<label for="excited"> excited </label>
+				<br>
+
+
+				<button type="button" onclick="buildMixtape()"> let's do it </button>
+
+		</div>
+
+
+
+		<div>
+			<table id="mixtape_table">
+			</table>
+		</div>
+
+		<div id="fileselector">
+			<input type="file" id="files" name="files[]" multiple />
+			<output id="list"></output>
+		</div>
+
+		<script> 
+			function buildMixtape() 
+			{
+				var isCozy = document.getElementById("cozy").checked;
+				var isChill = document.getElementById("chill").checked;
+				var isEnergized = document.getElementById("energized").checked;
+				var isWild = document.getElementById("wild").checked;
+				var isExcited = document.getElementById("excited").checked;
+
+				var goodSongs = [];
+				for (var i = 0; i < listOfSongs.length; i++) {
+					song = listOfSongs[i];
+					score = 0;
+					if (song['cozy'] == isCozy) {
+						score++;
+					}
+					if (song['chill'] == isChill) {
+						score++;
+					}
+					if (song['energized'] == isEnergized) {
+						score++;
+					}
+					if (song['wild'] == isWild) {
+						score++;
+					}
+					if (song['excited'] == isExcited) {
+						score++;
+					}
+					if (score >= 4) {
+						goodSongs.push([song['name'], song['link']]);
+					}
+				}
+
+				var mixtapeElement = document.getElementById("mixtape_table");
+				clearTable(mixtapeElement);
+				fillTable(mixtapeElement, goodSongs);
+			}
+
+			function clearTable(t) {
+				t.innerHTML = "";
+			}
+
+			function fillTable(t, songs) {
+				for (var i = 0; i < songs.length; i++) {
+					let row = t.insertRow(0);
+
+					cell = row.insertCell(0);
+
+					a = document.createElement('a');
+					a.href = songs[i][1];
+					a.target = '_blank';
+					a.innerHTML = songs[i][0];
+					cell.appendChild(a);
+				}
+			}
+
+			function checkFileSystem() {
+				if (window.File && window.FileReader && window.FileList && window.Blob) {
+				console.log("File API is supported.")
+				} else {
+				console.log("File API is not supported.")
+				}
+			}
+
+			var listOfSongs = [];
+
+			function handleFileSelect(evt) {
+				var files = evt.target.files;
+
+				var output = [];
+				for (var i = 0, f; f = files[i]; i++) {
+					getSongsFromFile(f);
+				}
+
+				var selectorElement = document.getElementById("fileselector");
+				selectorElement.innerHTML = "";
+			}
+
+			document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+			function getSongsFromFile(file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					var contents = e.target.result;
+					var lines = contents.split('\n');
+					for (var line = 0; line < lines.length; line++) {
+						if (lines[line] == "") {
+							continue;
+						} else {
+							parts = lines[line].split('\t');
+							songObject = {	'name' : parts[0],
+											'link' : parts[1],
+											'cozy' : parts[2] == 1,
+											'chill' : parts[3] == 1,
+											'energized' : parts[4] == 1,
+											'wild' : parts[5] == 1,
+											'excited' : parts[6] == 1
+										};
+							console.log(songObject);
+							listOfSongs.push(songObject);
+						}
+					}
+				};
+				reader.readAsText(file);
+			}
+
+			checkFileSystem();
+
+			
+		</script>
+	</body>
+
+
+
+</html>

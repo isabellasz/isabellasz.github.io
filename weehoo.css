@@ -6,3 +6,7 @@ h1 {
 body {
 	background-color: skyblue;
 }
+
+table {
+	left-margin: 10px;
+}
