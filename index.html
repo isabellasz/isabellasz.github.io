@@ -10,45 +10,53 @@
 	</head>
 
 	<body>
-		<h1> hey! i want to make u a mixtape :) 
-		</h1>
-		<div class="checkboxes"> 
+		<div class="contents">
 
-				<input type="checkbox" id="cozy" name="cozy" value="cozy">
-				<label for="cozy"> cozy </label>
-				<br>
-				
-				<input type="checkbox" id="chill" name="chill" value="chill">
-				<label for="chill"> chill </label>
-				<br>
-				
-				<input type="checkbox" id="energized" name="energized" value="energized">
-				<label for="energized"> energized </label>
-				<br>
-				
-				<input type="checkbox" id="wild" name="wild" value="wild">
-				<label for="wild"> wild </label>
-				<br>
-				
-				<input type="checkbox" id="excited" name="excited" value="excited">
-				<label for="excited"> excited </label>
-				<br>
+			<h1> hey! i want to make u a mixtape :) 
+			</h1>
+			<div class="checkboxes"> 
+
+					<label class="container">cozy
+						<input type="checkbox" id="cozy" name="cozy" value="cozy">
+						<span class="checkmark"></span>
+					</label>
+
+					<label class="container">chill
+						<input type="checkbox" id="chill" name="chill" value="chill">
+						<span class="checkmark"></span>
+					</label>
+
+					<label class="container">energized
+						<input type="checkbox" id="energized" name="energized" value="energized">
+						<span class="checkmark"></span>
+					</label>
+
+					<label class="container">wild
+						<input type="checkbox" id="wild" name="wild" value="wild">
+						<span class="checkmark"></span>
+					</label> 
+
+					<label class="container">excited
+						<input type="checkbox" id="excited" name="excited" value="excited">
+						<span class="checkmark"></span>
+					</label>
 
 
-				<button type="button" onclick="buildMixtape()"> let's do it </button>
+					<button type="button" onclick="buildMixtape()"> let's do it </button>
 
-		</div>
+			</div>
 
 
 
-		<div class="resultsonglinks">
-			<table id="mixtape_table">
-			</table>
-		</div>
+			<div class="resultsonglinks">
+				<table id="mixtape_table">
+				</table>
+			</div>
 
-		<div id="fileselector">
-			<input type="file" id="files" name="files[]" multiple />
-			<output id="list"></output>
+			<div id="fileselector">
+				<input type="file" id="files" name="files[]" multiple />
+				<output id="list"></output>
+			</div>
 		</div>
 
 		<script> 
